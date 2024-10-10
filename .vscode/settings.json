@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "CatAttack.sln"
+    "dotnet.defaultSolution": "CatAttack.sln",
+    "FSharp.suggestGitignore": false
 }
