@@ -1,0 +1,4 @@
+repository "CatAttack@AndrewNikitin@cloud"
+  path "/"
+    br "/main"
+    co "/main"
