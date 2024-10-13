@@ -13,10 +13,12 @@ public class SimpleTouchToMove : MonoBehaviour
     private Vector2 _direction;
     private Vector3 _moveDirection;
     private CharacterController _characterController;
+    private Animator _catAnimator;
 
     private void Start()
     {
         _characterController = GetComponent<CharacterController>();
+        _catAnimator = GetComponent<Animator>();
     }
    
     private void Update()
@@ -48,10 +50,9 @@ public class SimpleTouchToMove : MonoBehaviour
                     : transform.rotation;
 
                 transform.rotation =  characterRotation;
-
                 _moveDirection = _moveDirection * _speed;
             }
-            if (_touch.phase == TouchPhase.Ended)
+            if (_touch.phase == TouchPhase.Ended && _characterController.isGrounded)
             {
                  _moveDirection.y += _jumpForce;
 
@@ -60,13 +61,12 @@ public class SimpleTouchToMove : MonoBehaviour
         else
         {
             _isMoving = false;
-            //_moveDirection = Vector3.zero;
             _moveDirection = Vector3.Lerp(
                 _moveDirection, Vector3.zero, _stopForce * Time.deltaTime );
         }
 
         _moveDirection.y =  _moveDirection.y - (_gravity * Time.deltaTime);
-
+         _catAnimator.SetBool("IsWalking", _isMoving);
         _characterController.Move(_moveDirection * Time.deltaTime);
     }
 }
